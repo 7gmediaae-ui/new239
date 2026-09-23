@@ -62,7 +62,7 @@ export function HeroSection({ onPrimaryClick }: HeroSectionProps) {
               {...fadeUp(0.16)}
               className="mt-6 text-base sm:text-lg text-gray-300 leading-relaxed font-medium max-w-xl"
             >
-منصة رقمية لتقديم شكاوى المستهلكين وملاحظاتهم بسهولة، مع تنظيم بيانات الشكوى وتسهيل متابعة الطلب من مكان واحد.
+منصة رقمية لتقديم شكاوى المستهلكين وملاحظاتهم بسهولة، مع تنظيم بيانات الشكوى ، وتسهيل متابعة الطلب من مكان واحد.
             </motion.p>
 
             {/* زر الإجراء الرئيسي CTA - شفاف مع حافة/بوردر أبيض وشكل بيضوي */}
