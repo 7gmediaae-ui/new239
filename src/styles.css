@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+@theme {
+  /* Dynamic Brand Palette - Derived Directly From Image */
+  --color-dark-bg: #1F2428;       /* رمادي غامق جداً/أسود - للخلفيات الرئيسية */
+  --color-dark-card: #212529;     /* لون البطاقات الداكنة */
+  --color-dark-glass: rgba(22, 26, 29, 0.85); /* خلفية زجاجية داكنة */
+  
+  --color-brand-red: #e63946;     /* أحمر زاهي/أحمر برتقالي - للأزرار والتنبيهات (Accent) */
+  --color-brand-red-hover: #d62828;
+  
+  --color-light-bg: #f8f9fa;      /* أبيض مائل للرمادي الهادئ - للسكشنات الفاتحة */
+  --color-light-card: #ffffff;    /* أبيض صريح للبطاقات الفاتحة */
+
+  /* Functional / Semantic tokens */
+  --color-background: #ffffff;
+  --color-surface: #f8f9fa;
+  --color-foreground: #161a1d;
+  --color-muted: #6c757d;
+  --color-muted-foreground: #495057;
+
+  /* Primary & Accent tokens */
+  --color-primary: #161a1d;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #e63946;
+  --color-accent-foreground: #ffffff;
+  --color-border: #e9ecef;
+
+  /* Typography */
+  --font-sans: "Tajawal", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-heading: "Tajawal", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  
+  /* Radii & Shadows */
+  --radius: 0.75rem;
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 15px 35px rgba(230, 57, 70, 0.3);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.6;
+  }
+  
+  /* عناوين بارزة وقوية تماماً مثل تصميم الصورة */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 800; /* وزن عريض جداً Heavy/Bold */
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  
+  ::selection {
+    background-color: var(--color-brand-red);
+    color: #ffffff;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-brand-red);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 768px) {
+  .container-page {
+    padding-inline: 2.5rem;
+  }
+}
+@media (min-width: 1280px) {
+  .container-page {
+    padding-inline: 4rem;
+  }
+}
+
+@layer utilities {
+  .container-px {
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-px {
+      padding-inline: 2.5rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-px {
+      padding-inline: 4rem;
+    }
+  }
+
+  /* 1. التداخل الخاص بالبطاقات العائمة أسفل الهيرو (Floating Overlap Cards) */
+  .hero-overlap-grid {
+    margin-top: -4rem;
+    position: relative;
+    z-index: 30;
+  }
+  @media (min-width: 768px) {
+    .hero-overlap-grid {
+      margin-top: -5.5rem;
+    }
+  }
+
+  /* 2. البطاقات الشفافة الداكنة (مثل كروت Gallery و FAQ في الصورة) */
+  .card-dark-overlay {
+    background: rgba(22, 26, 29, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* 3. الخط الأحمر الصغير أسفل العناوين (مثل سكشن الخدمات في الصورة) */
+  .heading-line-red {
+    position: relative;
+    display: inline-block;
+  }
+  .heading-line-red::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: var(--color-brand-red);
+    margin: 8px auto 0 auto;
+    border-radius: 2px;
+  }
+
+  /* 4. تأثير الهوفر والتكبير للصور داخل الكروت */
+  .img-zoom-hover {
+    overflow: hidden;
+  }
+  .img-zoom-hover img {
+    transition: transform 0.4s ease-in-out;
+  }
+  .img-zoom-hover:hover img {
+    transform: scale(1.06);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Animations */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
