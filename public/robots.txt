@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # رابط خريطة الموقع الرسمية
-Sitemap: https://emirates-response.com/sitemap.xml
+Sitemap: https://uae-platform.com/sitemap.xml
