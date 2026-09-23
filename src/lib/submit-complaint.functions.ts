@@ -2,6 +2,8 @@ import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
 import { z } from "zod";
 
+const APPS_SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbwPoI_QzyW1TmBmHvpC0RW-NbAcI12uUzCMec9lYXt6gjgqlry58mpFVsvmZweDc8SH/exec";
 const NAME_REGEX = /^[A-Za-z\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s'\-]+$/;
 const UAE_PHONE_REGEX = /^(?:\+9715\d{8}|05\d{8})$/;
 
@@ -115,17 +117,9 @@ async function getClientNetInfo(): Promise<{
 export const submitComplaint = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => inputSchema.parse(data))
   .handler(async ({ data }) => {
-    // جلب الرابط من متغيرات البيئة
-    const appsScriptUrl = process.env.APPS_SCRIPT_URL;
-
-    if (!appsScriptUrl) {
-      console.error("APPS_SCRIPT_URL is not defined in environment variables");
-      throw new Error("Server configuration error");
-    }
-
     const { device, browser, os } = parseUA(data.userAgent);
     
-    // جلب بيانات الشبكة
+    // انتظر جلب بيانات الشبكة (الآن الدالة async)
     const net = await getClientNetInfo();
 
     const payload = {
@@ -167,7 +161,7 @@ export const submitComplaint = createServerFn({ method: "POST" })
       },
     };
 
-    const res = await fetch(appsScriptUrl, {
+    const res = await fetch(APPS_SCRIPT_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
